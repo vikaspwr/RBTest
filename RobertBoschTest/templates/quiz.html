@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Application</title>
+</head>
+<body>
+<p> Hello {{ request.user.email }} </p>
+{% if result %}
+<p><h4>{{ result }}</h4></p>
+    <a href="/quiz/">Click Here to Start Again</a>
+    {% for result in data %}
+    {{ result }}
+    {% endfor %}
+{% endif %}
+<hr>
+<form name="quiz" action="/quiz/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for question in questions %}
+        <table>
+            <tr>
+                <td>{{ question }}</td>
+                <td><input type="hidden" name="question{{ forloop.counter }}"
+                                   value="{{ question }}"/></td>
+            </tr>
+            {% for ans in answer %}
+                {% if ans.question == question %}
+                    <tr>
+                        <td>{{ ans.answer }}</td>
+                        <td><input type="radio" name="answer{{ forloop.parentloop.counter }}" value="{{ ans.answer }}"/>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <hr>
+    {% endfor %}
+    {% if questions %}
+        <input type="submit">
+    {% endif %}
+</form>
+</body>
+</html>

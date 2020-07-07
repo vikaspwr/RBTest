@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body align="center">
+<hr>
+{% if error %}
+    <h5>{{ error }}</h5>
+{% endif %}
+<h5>Welcome</h5>
+<form name="login" method="post" action="/login/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+        <label>Email id:</label>
+        <input type="email" name="email" required>
+    </p>
+    <p>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+    </p>
+    <hr>
+    <input type="submit">
+</form>
+</body>
+</html>
