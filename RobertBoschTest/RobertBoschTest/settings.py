@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'ApplicationTest',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'ApplicationTest.apps.ApplicationtestConfig',
 ]
 
 MIDDLEWARE = [

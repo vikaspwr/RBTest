@@ -9,8 +9,9 @@
 {% if result %}
 <p><h4>{{ result }}</h4></p>
     <a href="/quiz/">Click Here to Start Again</a>
-    {% for result in data %}
-    {{ result }}
+    {% for question, answer in data.items %}
+    {{ question }}
+    {{ answer }}
     {% endfor %}
 {% endif %}
 <hr>

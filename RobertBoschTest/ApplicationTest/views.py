@@ -47,6 +47,7 @@ def quiz(request):
                     data[ans.question] = [answ]
                     if ans.answer == answ and ans.is_true:
                         correct_answer += 1
+                        data[ans.question] = data[ans.question].append(ans.answer)
                     elif ans.is_true:
                         data[ans.question] = data[ans.question].append(ans.answer)
 
