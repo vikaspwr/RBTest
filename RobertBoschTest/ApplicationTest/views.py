@@ -16,7 +16,6 @@ def login_authentication(request):
                 return render(request, 'login.html', {'error': 'User Doest Not exist.'})
 
             is_authenticated = authenticate(username=email, password=password)
-            print(is_authenticated, ">>>>>>>>>>>>>>>>>")
             if is_authenticated:
                 login(request, is_authenticated)
                 return HttpResponseRedirect('/quiz/')
