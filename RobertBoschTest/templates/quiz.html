@@ -5,14 +5,43 @@
     <title>Quiz Application</title>
 </head>
 <body>
-<p> Hello {{ request.user.email }} </p>
+<p> Hello {{ request.user.email }} <a href="/logout/"> Logout</a></p>
 {% if result %}
-<p><h4>{{ result }}</h4></p>
-    <a href="/quiz/">Click Here to Start Again</a>
-    {% for question, answer in data.items %}
-    {{ question }}
-    {{ answer }}
-    {% endfor %}
+    <p><h4>{{ result }}</h4></p>
+    <table border="1">
+        <tr>
+            <th>
+                Sr. No.
+            </th>
+            <th>
+                Question
+            </th>
+            <th>
+                Correct Answer
+            </th>
+            <th>
+                Your Answer
+            </th>
+        </tr>
+        {% for question, answer in data.items %}
+            <tr>
+                <td width="50px;">
+                    {{ forloop.counter }}
+                </td>
+                <td width="400px;">
+                    {{ question }}
+                </td>
+                <td width="400px;">
+                    {{ answer.1 }}
+                </td>
+                <td width="400px;">
+                    {{ answer.0 }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/quiz/">Click Here for retest</a>
 {% endif %}
 <hr>
 <form name="quiz" action="/quiz/" method="post" enctype="multipart/form-data">
@@ -22,7 +51,7 @@
             <tr>
                 <td>{{ question }}</td>
                 <td><input type="hidden" name="question{{ forloop.counter }}"
-                                   value="{{ question }}"/></td>
+                           value="{{ question }}"/></td>
             </tr>
             {% for ans in answer %}
                 {% if ans.question == question %}

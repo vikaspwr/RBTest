@@ -1,8 +1,15 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from ApplicationTest.models import *
+
+
+@login_required
+def end_session(request):
+    logout(request)
+    return render(request, 'login.html')
 
 
 def login_authentication(request):
@@ -30,6 +37,7 @@ def login_authentication(request):
         return render(request, 'login.html')
 
 
+@login_required
 def quiz(request):
     if request.POST:
         try:
@@ -42,13 +50,13 @@ def quiz(request):
                 answ = request.POST["answer{0}".format(no)]
                 question = Question.objects.get(question=request.POST[que])
                 answer = Answer.objects.filter(question=question)
+                data[question] = [answ]
                 for ans in answer:
-                    data[ans.question] = [answ]
                     if ans.answer == answ and ans.is_true:
                         correct_answer += 1
-                        data[ans.question] = data[ans.question].append(ans.answer)
+                        data[ans.question].append(ans.answer)
                     elif ans.is_true:
-                        data[ans.question] = data[ans.question].append(ans.answer)
+                        data[ans.question].append(ans.answer)
 
             result = "{} Out of {} are correct answer.".format(correct_answer, total_questions)
             return render(request, 'quiz.html', {"result": result, 'data': data})

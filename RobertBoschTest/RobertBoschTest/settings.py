@@ -52,7 +52,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'RobertBoschTest.urls'
 
-# AUTHENTICATION_BACKEND = ('django.contrib.auth.backends.ModelBackend')
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'ApplicationTest.backends.EmailAuthBackend',
+]
 
 REST_FRAMEWORK = {
 
